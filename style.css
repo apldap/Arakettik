@@ -1783,164 +1783,23 @@ body {
     outline: 3px solid rgba(59, 130, 246, 0.25);
     outline-offset: 3px;
 }
-/* ============================================================================
-   RESPONSIVE MOBILE LAYOUT — Arakettik
-   Не влияет на ПК
-   ============================================================================ */
-
 @media (max-width: 768px) {
-
-    /* Контейнер */
-    .container{
-        width: 92%;
-        max-width: 100%;
-        padding: 0;
+    /* Выстраиваем контейнер в одну колонку */
+    .events-grid, 
+    .organizations-grid, 
+    .hub-content {
+        display: grid !important; 
+        grid-template-columns: 1fr !important; /* Ровно одна колонка на всю ширину */
+        gap: 24px !important; /* Расстояние между карточками */
+        padding: 16px !important; /* Отступы по краям экрана, чтобы карточки не прилипали к рамке телефона */
     }
 
-    /* Шапка */
-    .header{
-        padding: 14px 0;
+    /* Делаем карточки на всю доступную ширину */
+    .event-card, 
+    .organization-card, 
+    .article-card {
+        width: 100% !important; 
+        margin: 0 !important;
+        box-sizing: border-box !important;
     }
-
-    .logo{
-        font-size: 22px;
-    }
-
-    /* Меню */
-    .menu-toggle{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .nav-menu{
-        position: fixed;
-        top: 70px;
-        left: 16px;
-        right: 16px;
-        background: var(--surface);
-        border-radius: 18px;
-        padding: 18px;
-        display: none;
-        flex-direction: column;
-        gap: 14px;
-        z-index: 1000;
-        box-shadow: 0 20px 40px rgba(0,0,0,.18);
-    }
-
-    .nav-menu.open{
-        display: flex;
-    }
-
-    /* Главный экран */
-    .hero{
-        padding: 40px 0 30px;
-        text-align: center;
-    }
-
-    .hero h1{
-        font-size: 34px;
-        line-height: 1.15;
-    }
-
-    .hero p{
-        font-size: 15px;
-    }
-
-    /* Статистика */
-    .stats{
-        grid-template-columns: repeat(2,1fr);
-        gap: 12px;
-    }
-
-    /* Ивенты */
-    .events-grid{
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
-
-    .event-card{
-        border-radius: 22px;
-    }
-
-    .event-card-image{
-        height: 170px;
-        object-fit: cover;
-    }
-
-    .event-body{
-        padding: 18px;
-    }
-
-    .event-body h3{
-        font-size: 20px;
-    }
-
-    /* Категории — горизонтальный скролл */
-    .filters{
-        display: flex;
-        overflow-x: auto;
-        gap: 10px;
-        padding-bottom: 8px;
-        scrollbar-width: none;
-    }
-
-    .filters::-webkit-scrollbar{
-        display: none;
-    }
-
-    .filter-btn{
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-
-    /* Организации */
-    .organizations-grid{
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
-
-    /* Кнопки */
-    .btn{
-        width: 100%;
-        justify-content: center;
-    }
-
-    .event-detail-actions{
-        flex-direction: column;
-    }
-
-    .event-detail-actions .btn{
-        width: 100%;
-    }
-
-    /* Модальные окна */
-    .modal-content{
-        width: 94%;
-        max-height: 88vh;
-        border-radius: 22px;
-    }
-
-}
-
-/* Очень маленькие телефоны */
-
-@media (max-width: 480px){
-
-    .hero h1{
-        font-size: 28px;
-    }
-
-    .hero{
-        padding-top: 30px;
-    }
-
-    .stats{
-        grid-template-columns: 1fr;
-    }
-
-    .event-card-image{
-        height: 150px;
-    }
-
 }
