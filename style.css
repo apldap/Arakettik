@@ -1709,97 +1709,101 @@ body {
     margin-left: 8px;
 }
 
+/* ==========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ (CSS PATCH)
+   ========================================== */
 
-/* 📱 Mobile */
-
-@media (max-width: 850px) {
-    .opportunities-grid {
-        grid-template-columns: repeat(2, 1fr);
+@media (max-width: 991px) {
+    /* Шапка и меню */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
     }
 
-    .section-heading h2 {
-        font-size: 30px;
-    }
-}
-
-@media (max-width: 560px) {
-    .opportunities-section {
-        padding: 55px 0;
-    }
-
-    .opportunities-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section-heading h2 {
-        font-size: 27px;
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: var(--bg-card, #121824);
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        gap: 20px;
+        transition: left 0.3s ease;
+        z-index: 999;
     }
 
-    .section-heading p {
-        font-size: 15px;
+    .nav-menu.open {
+        left: 0;
     }
-}
-/* === Event registration CTA — polished Arakettik style === */
-.event-detail-actions .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    min-height: 46px;
-    padding: 0 20px;
-    border: 1px solid rgba(37, 99, 235, 0.22);
-    border-radius: 12px;
-    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-    color: #fff !important;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
-    text-decoration: none;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
 
-.event-detail-actions .btn-primary::after {
-    content: "↗";
-    font-size: 15px;
-    font-weight: 800;
-    opacity: .9;
-    transform: translateY(-1px);
-}
+    .menu-btn {
+        display: block !important;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+    }
 
-.event-detail-actions .btn-primary:hover {
-    color: #fff !important;
-    filter: brightness(1.04);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.26);
-}
+    .header-controls {
+        gap: 10px;
+    }
 
-.event-detail-actions .btn-primary:active {
-    transform: translateY(0);
-    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
-}
+    .header-city-picker select {
+        max-width: 110px;
+        font-size: 0.85rem;
+    }
 
-.event-detail-actions .btn-primary:focus-visible {
-    outline: 3px solid rgba(59, 130, 246, 0.25);
-    outline-offset: 3px;
-}
-@media (max-width: 768px) {
-    /* Выстраиваем контейнер в одну колонку */
+    /* Сетка и карточки */
+    .hero-container, 
+    .suggest-container {
+        grid-template-columns: 1fr !important;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
     .events-grid, 
-    .organizations-grid, 
-    .hub-content {
-        display: grid !important; 
-        grid-template-columns: 1fr !important; /* Ровно одна колонка на всю ширину */
-        gap: 24px !important; /* Расстояние между карточками */
-        padding: 16px !important; /* Отступы по краям экрана, чтобы карточки не прилипали к рамке телефона */
+    .organizations-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
     }
 
-    /* Делаем карточки на всю доступную ширину */
-    .event-card, 
-    .organization-card, 
-    .article-card {
-        width: 100% !important; 
-        margin: 0 !important;
-        box-sizing: border-box !important;
+    .filter-buttons {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
     }
+
+    .filter-btn {
+        flex: 0 0 auto;
+    }
+
+    /* Формы и модальные окна */
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .modal-content {
+        width: 92% !important;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.4rem !important; }
+    .btn { width: 100%; text-align: center; }
 }
