@@ -1709,101 +1709,285 @@ body {
     margin-left: 8px;
 }
 
-/* ==========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ (CSS PATCH)
-   ========================================== */
+/* ============================================================================
+   18. MOBILE REFINEMENT — каталог, а не вертикальная лента
+   Важно: этот блок только переопределяет мобильные стили. Desktop не меняется.
+   ============================================================================ */
 
-@media (max-width: 991px) {
-    /* Шапка и меню */
+@media (max-width: 768px) {
+    /* Шапка: меньше визуального шума, но все основные действия остаются */
     .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 15px;
+        height: 64px;
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 8px;
     }
 
-    .nav-menu {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background: var(--bg-card, #121824);
-        flex-direction: column;
-        align-items: center;
-        padding: 30px 20px;
-        gap: 20px;
-        transition: left 0.3s ease;
-        z-index: 999;
-    }
-
-    .nav-menu.open {
-        left: 0;
-    }
-
-    .menu-btn {
-        display: block !important;
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: pointer;
+    .logo {
+        font-size: 1.12rem;
+        flex-shrink: 0;
     }
 
     .header-controls {
-        gap: 10px;
+        margin-left: auto;
+        gap: 6px;
+    }
+
+    .header-city-picker {
+        min-width: 94px;
+        max-width: 112px;
+        height: 36px;
+        border-radius: 11px;
     }
 
     .header-city-picker select {
-        max-width: 110px;
-        font-size: 0.85rem;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: .64rem;
     }
 
-    /* Сетка и карточки */
-    .hero-container, 
-    .suggest-container {
-        grid-template-columns: 1fr !important;
-        flex-direction: column;
-        text-align: center;
+    .language-btn,
+    .theme-btn,
+    .menu-btn {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+    }
+
+    /* Полноэкранное меню не должно выглядеть как отдельная страница */
+    .nav-menu {
+        top: 64px;
+        height: calc(100vh - 64px);
+        padding: 28px 22px;
+        gap: 4px;
+        align-items: stretch;
+        background: color-mix(in srgb, var(--bg-color) 94%, transparent);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        font-size: 1rem;
+    }
+
+    .nav-link.active {
+        background: var(--glass-bg);
+    }
+
+    .nav-link.active::after {
+        width: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 4px;
+    }
+
+    /* Герой не должен занимать половину экрана телефона */
+    .hero-section {
+        padding: 104px 0 58px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 9vw, 2.45rem);
+        line-height: 1.12;
+        margin-bottom: 16px;
+    }
+
+    .hero-content p {
+        font-size: .98rem;
+        line-height: 1.55;
+        margin-bottom: 24px;
     }
 
     .hero-btns {
-        justify-content: center;
+        gap: 8px;
     }
 
-    .events-grid, 
-    .organizations-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px;
+    .hero-btns .btn {
+        min-height: 44px;
     }
 
-    .filter-buttons {
-        display: flex;
-        overflow-x: auto;
+    .section {
+        padding: 52px 0;
+    }
+
+    .section-header {
+        margin-bottom: 28px;
+        text-align: left;
+    }
+
+    .section-header h2 {
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+    }
+
+    .section-header p {
+        font-size: .92rem;
+        line-height: 1.5;
+    }
+
+    /* ИВЕНТЫ: 2-column catalog вместо длинной ленты */
+    .events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .event-card {
+        min-width: 0;
+        border-radius: 16px;
+    }
+
+    .event-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .event-card-image {
+        height: 112px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .event-badge-row {
+        padding: 12px 12px 0;
+        gap: 6px;
+    }
+
+    .cat-tag {
+        font-size: .58rem;
+        padding: 4px 7px;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
         white-space: nowrap;
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
+    }
+
+    .event-date {
+        font-size: .66rem;
+        white-space: nowrap;
+    }
+
+    .event-body {
+        padding: 10px 12px 12px;
+    }
+
+    .event-body h3 {
+        font-size: .92rem;
+        line-height: 1.28;
+        margin-bottom: 7px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .event-body p {
+        font-size: .72rem;
+        line-height: 1.4;
+        -webkit-line-clamp: 3;
+    }
+
+    .event-footer {
+        padding: 0 12px 12px;
+    }
+
+    .event-footer .btn {
+        width: 100%;
+        min-height: 36px;
+        padding: 0 8px;
+        font-size: .68rem;
+    }
+
+    /* Панель поиска/фильтров не должна растягивать экран */
+    .filter-buttons {
+        gap: 7px;
+        margin-bottom: 14px;
     }
 
     .filter-btn {
-        flex: 0 0 auto;
+        padding: 7px 10px;
+        font-size: .7rem;
     }
 
-    /* Формы и модальные окна */
-    .form-row {
-        grid-template-columns: 1fr !important;
+    /* Организации остаются карточками, но не превращаются в огромный список */
+    .organizations-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
     }
 
-    .modal-content {
-        width: 92% !important;
-        max-height: 85vh;
-        overflow-y: auto;
-        padding: 20px !important;
+    .organization-card {
+        min-height: 0;
+        padding: 15px;
+        border-radius: 16px;
+    }
+
+    .organization-card-icon,
+    .organization-detail-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 1rem;
+    }
+
+    .organization-card h3 {
+        font-size: .9rem;
+        line-height: 1.3;
+    }
+
+    .organization-card p {
+        font-size: .72rem;
+        line-height: 1.4;
     }
 }
 
-@media (max-width: 480px) {
-    h1 { font-size: 1.8rem !important; }
-    h2 { font-size: 1.4rem !important; }
-    .btn { width: 100%; text-align: center; }
+/* На очень узких телефонах карточки и тексту нужен воздух */
+@media (max-width: 390px) {
+    .header-city-picker {
+        min-width: 82px;
+        max-width: 92px;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .events-grid,
+    .organizations-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .event-card-image {
+        height: 150px;
+    }
+
+    .event-body h3 {
+        font-size: 1rem;
+    }
+
+    .event-body p {
+        font-size: .78rem;
+    }
+}
+
+/* Модальные окна на телефоне остаются полноценными, а не сжатыми */
+@media (max-width: 560px) {
+    .event-modal-image {
+        max-height: 220px;
+    }
+
+    .event-detail-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .event-detail-actions .btn {
+        width: 100%;
+        min-height: 44px;
+    }
 }
